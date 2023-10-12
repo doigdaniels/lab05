@@ -1,45 +1,32 @@
+
 /*
  * Richard Sun
  * Partner: Cameron Daniels
  * 10/11/23
 */
+
+// Cameron Daniels
+// 10/15/23
+// Partner: Richard Sun
+
 #include <iostream>
 #include <bits/stdc++.h>
-using namespace std;
-#include <string>
 #include <vector>
-#include <chrono>
-inline long long systemTimeNanoseconds()
-{
-    return std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::time_point_cast<std::chrono::milliseconds>(
-                    std::chrono::system_clock::now()
-            ).time_since_epoch()
-    ).count();
-}
-inline std::vector<std::string>& getStringData()
-{
-    static std::vector<std::string> stringDataSet;
-    if (stringDataSet.size() == 0)
-    {
-        char tempSet[6] = " ";
-        for (tempSet[0] = 'a'; tempSet[0] <= 'z'; tempSet[0]++)
-            for (tempSet[1] = 'a'; tempSet[1] <= 'z'; tempSet[1]++)
-                for (tempSet[2] = 'a'; tempSet[2] <= 'z'; tempSet[2]++)
-                    for (tempSet[3] = 'a'; tempSet[3] <= 'z'; tempSet[3]++)
-                        for (tempSet[4] = 'a'; tempSet[4] <= 'z'; tempSet[4]++)
-                            stringDataSet.push_back(std::string(tempSet));
+#include <string>
+#include "StringData.h"
+
+using namespace std;
+
+int linear_search(vector<string> container, string element) {
+  for (int i = 0; i < container.size(); i++) {
+    if (container.at(i) == element) {
+      return i;
     }
-    return stringDataSet;
+  }
+
+  return -1;
 }
-int linear_search(vector<string> container,string element) {
-    for(int i=0;i<container.size();i++){
-        if (container[i]==element){
-            return i;
-        }
-    }
-    return -1;
-}
+
 int binary_search(vector<string> container,string element) {
     int left = 0;
     int right = container.size() - 1;
@@ -65,36 +52,39 @@ int binary_search(vector<string> container,string element) {
     return -1;
 }
 
-
-
 int main() {
-    vector<string> stringData=getStringData();
-    cout<<"finished generating"<<endl;
-    cout<<"Linear Search"<<endl;
-    cout<<"not_here"<<endl;
-    long long start=systemTimeNanoseconds();
-    cout<<"Index "<<linear_search(stringData,"not_here")<<endl;
-    cout<<"Took "<<systemTimeNanoseconds()-start<<" nanoseconds"<<endl;
-    cout<<"aaaaa"<<endl;
-    start=systemTimeNanoseconds();
-    cout<<"Index "<<linear_search(stringData,"aaaaa")<<endl;
-    cout<<"Took "<<systemTimeNanoseconds()-start<<" nanoseconds"<<endl;
-    cout<<"mzzzz"<<endl;
-    start=systemTimeNanoseconds();
-    cout<<"Index "<<linear_search(stringData,"mzzzz")<<endl;
-    cout<<"Took "<<systemTimeNanoseconds()-start<<" nanoseconds"<<endl;
-    cout<<"Binary Search"<<endl;
-    start=systemTimeNanoseconds();
-    cout<<"Index "<<binary_search(stringData,"not_here")<<endl;
-    cout<<"Took "<<systemTimeNanoseconds()-start<<" nanoseconds"<<endl;
-    cout<<"aaaaa"<<endl;
-    start=systemTimeNanoseconds();
-    cout<<"Index "<<binary_search(stringData,"aaaaa")<<endl;
-    cout<<"Took "<<systemTimeNanoseconds()-start<<" nanoseconds"<<endl;
-    cout<<"mzzzz"<<endl;
-    start=systemTimeNanoseconds();
-    cout<<"Index "<<binary_search(stringData,"mzzzz")<<endl;
-    cout<<"Took "<<systemTimeNanoseconds()-start<<" nanoseconds"<<endl;
+  vector<string> data = getStringData();
 
-    return 0;
+  int start_time = systemTimeNanoseconds();
+  int i = linear_search(data, "not_here");
+  int time_diff = systemTimeNanoseconds() - start_time;
+  cout << "Linear search found not_here at " << i << " in " << time_diff << " nanoseconds" << endl;
+
+  start_time = systemTimeNanoseconds();
+  i = binary_search(data, "not_here");
+  time_diff = systemTimeNanoseconds() - start_time;
+  cout << "Binary search found not_here at " << i << " in " << time_diff << " nanoseconds" << endl;
+
+  start_time = systemTimeNanoseconds();
+  i = linear_search(data, "aaaaa");
+  time_diff = systemTimeNanoseconds() - start_time;
+  cout << "Linear search found aaaaa at " << i << " in " << time_diff << " nanoseconds" << endl;
+
+  start_time = systemTimeNanoseconds();
+  i = binary_search(data, "aaaaa");
+  time_diff = systemTimeNanoseconds() - start_time;
+  cout << "Binary search found aaaaa at " << i << " in " << time_diff << " nanoseconds" << endl;
+
+  start_time = systemTimeNanoseconds();
+  i = linear_search(data, "mzzzz");
+  time_diff = systemTimeNanoseconds() - start_time;
+  cout << "Linear search found mzzzz at " << i << " in " << time_diff << " nanoseconds" << endl;
+
+  start_time = systemTimeNanoseconds();
+  i = binary_search(data, "mzzzz");
+  time_diff = systemTimeNanoseconds() - start_time;
+  cout << "Binary search found mzzzz at " << i << " in " << time_diff << " nanoseconds" << endl;
+
+
+  return 0;
 }
