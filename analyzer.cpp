@@ -1,3 +1,10 @@
+
+/*
+ * Richard Sun
+ * Partner: Cameron Daniels
+ * 10/11/23
+*/
+
 // Cameron Daniels
 // 10/15/23
 // Partner: Richard Sun
@@ -20,26 +27,29 @@ int linear_search(vector<string> container, string element) {
   return -1;
 }
 
-int binary_search(vector<string> container, string element) {
-  int l = 0;
-  int m = container.size() / 2;
-  int r = container.size();
-
-  while (l < r) {
-    if (element > container.at(m)) {
-      l = m + 1;
+int binary_search(vector<string> container,string element) {
+    int left = 0;
+    int right = container.size() - 1;
+    //breaks when left and right point to the same element
+    while (left < right) {
+        //calculate the midpoint
+        int mid = (left + right) / 2;
+        //check if element is in the lower half
+        if (element < container[mid]) {
+            //restrict the search area to the lower half
+            right = mid;
+            //check if element is in the upper half
+        } else if (element > container[mid]) {
+            //restrict the search area to the upper half
+            left = mid + 1;
+            //check if it is the element
+        } else if (container[mid] == element) {
+            //return the index
+            return mid;
+        }
     }
-    else {
-      r = m;
-    }
-    m = (l + r) / 2;
-  }
-
-  if (container.at(l) == element) {
-    return l;
-  }
-  
-  return -1;
+    //return -1 if not found
+    return -1;
 }
 
 int main() {
